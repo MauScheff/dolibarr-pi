@@ -10,9 +10,9 @@
   - Then go to Zero Trust → Access → Tunnels - Creae Tunnel
   - Subdomain: dolibarr (or one you like)
   - Domain:  Choose from your Cloudflare-managed domains (e.g., example.com)
-  - Service Type: HTTP
+  - Service Type: HTTP (the public endpooint between the user and CloudFlare will use HTTPS nevertheless).
   - URL: http://dolibarr:80 (the container name and port in Docker Compose)
-  - Copy paste the token or leave it open as you'll need it later.
+  - Save the token somewhere or leave the tab open - you'll need it later.
 
 # Instructions
 ## 1. Flash Raspberry Pi OS (Lite 64-bit) to SSD
@@ -29,11 +29,11 @@ Select:
 8. Click Write and let it finish
 9. Eject & replug the SSD to your Mac — two partitions should appear: boot and root
 
-## Turn on
+## 2. Turn on
 1. Connect SSD to RaspberryPi
 2. Connect to power adapter and to local router (via ethernet cable or configured when flashing to connect via wifi).
 
-## SSH, copy files, and setup - from another computer in the same network:
+## 3. SSH, copy files, and setup - from another computer in the same network:
 1. `ssh pi@raspberrypi.local` (test connection first - optional).
 2. `scp -r setup.sh dolibarr-stack pi@raspberrypi.local:/home/pi/`
 3. `ssh pi@raspberrypi.local`
@@ -43,13 +43,13 @@ Select:
 7. eg. `nano /home/pi/dolibarr-stack/.env` -> `TUNNEL_TOKEN=your-cloudflare-tunnel-token-here`
 8. Save and exit `^-X`
 
-## 3. Run
+## 4. Run
 1. `cd ~/dolibarr-stack`
 2. `docker compose up -d`
 
-## 4. Check connection
+## 5. Check connection
 - Locally: http://raspberrypi.local:8080/
-- Remotely: your.cloudflare.tunnel.url
+- Remotely: https://your.cloudflare.tunnel.url
 
 ---
 
