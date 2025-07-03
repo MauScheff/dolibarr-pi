@@ -1,20 +1,24 @@
-# Required
-## Hardware
+# Dolibarr on Raspberry Pi with Cloudflare Tunnel
+
+This repository provides scripts and Docker Compose configuration to run Dolibarr ERP on a Raspberry Pi 4 using an SSD, with secure remote access via Cloudflare Tunnel.
+
+## Prerequisites
+### Hardware
 - USB 3.0 SSD Drive - Make sure it comes with a standard usb adapter (that used by RaspberryPi - the blue ports)
 - RaspberryPi 4 (4GB) - With Case (Recommended)
 - Lan Cable (or connect via WiFi).
   
-## Software
+### Software
 - Set up a new CloudFlare Tunnel (needs you to have a domain managed with CloudFlare).
   - You may need to sign up to the free plan and verify with a credit card.
-  - Then go to Zero Trust → Access → Tunnels - Creae Tunnel
+  - Then go to Zero Trust → Access → Tunnels - Create Tunnel
   - Subdomain: dolibarr (or one you like)
   - Domain:  Choose from your Cloudflare-managed domains (e.g., example.com)
-  - Service Type: HTTP (the public endpooint between the user and CloudFlare will use HTTPS nevertheless).
+  - Service Type: HTTP (the public endpoint between the user and Cloudflare will use HTTPS nevertheless).
   - URL: http://dolibarr:80 (the container name and port in Docker Compose)
   - Save the token somewhere or leave the tab open - you'll need it later.
 
-# Instructions
+## Instructions
 ## 1. Flash Raspberry Pi OS (Lite 64-bit) to SSD
 Open Raspberry Pi Imager on your Mac
 
@@ -53,9 +57,15 @@ Select:
 
 ---
 
-## Diagnose
+## Troubleshooting
 - `docker compose ps`
 - `docker compose logs`
 - `docker compose logs dolibarr`
 - `docker compose logs db`
 - `docker compose logs cloudflared`
+- Reset:
+  ```
+  cd dolibarr-stack/
+  docker compose down
+  docker compose up -d
+  ```
