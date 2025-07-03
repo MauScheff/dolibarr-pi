@@ -48,8 +48,8 @@ Select:
 2. `docker compose up -d`
 
 ## 4. Check connection
-Locally: http://raspberrypi.local:8080/
-Remotely: your.cloudflare.tunnel.url
+- Locally: http://raspberrypi.local:8080/
+- Remotely: your.cloudflare.tunnel.url
 
 ---
 
