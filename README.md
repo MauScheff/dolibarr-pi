@@ -49,13 +49,13 @@ Select:
 
 ## 4. Check connection
 Locally: http://raspberrypi.local:8080/
-Remotely: <cloudflare tunnel url>
+Remotely: your.cloudflare.tunnel.url
 
 ---
 
 ## Diagnose
-`docker compose ps`
-`docker compose logs`
-`docker compose logs dolibarr`
-`docker compose logs db`
-`docker compose logs cloudflared`
+- `docker compose ps`
+- `docker compose logs`
+- `docker compose logs dolibarr`
+- `docker compose logs db`
+- `docker compose logs cloudflared`
