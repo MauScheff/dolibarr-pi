@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  db:
+    image: mariadb:10.5
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: dolibarr_root
+      MYSQL_DATABASE: dolibarr
+      MYSQL_USER: dolibarr
+      MYSQL_PASSWORD: dolibarr_pwd
+    volumes:
+      - ./db:/var/lib/mysql
+
+  dolibarr:
+    image: dolibarr/dolibarr:latest
+    restart: always
+    environment:
+      DOLI_DB_HOST: db
+      DOLI_DB_NAME: dolibarr
+      DOLI_DB_USER: dolibarr
+      DOLI_DB_PASSWORD: dolibarr_pwd
+    ports:
+      - "8080:80"
+   # volumes:
+   #   - ./html:/var/www/html
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${TUNNEL_TOKEN}
