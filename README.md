@@ -69,3 +69,8 @@ Select:
   docker compose down
   docker compose up -d
   ```
+
+## Reference
+- Official Dolibarr Docker Image: https://github.com/Dolibarr/dolibarr-docker https://hub.docker.com/r/dolibarr/dolibarr
+- Official CloudFlare Tunnel Docker Image: https://hub.docker.com/r/cloudflare/cloudflared
+- Official MariaDB Docker Image: https://hub.docker.com/_/mariadb
