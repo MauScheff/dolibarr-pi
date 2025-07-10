@@ -11,7 +11,7 @@ This repository provides scripts and Docker Compose configuration to run Dolibar
 ### Software
 Cloudflare Tunnel:
 1. Sign up for a free Cloudflare account (you may need to verify with a credit card).
-2. Go to **Zero Trust → Access → Tunnels**, and create a new tunnel.
+2. Go to **Zero Trust → Access → Tunnels**, and create a new tunnel (cloudflared).
 3. Configure:
    - **Subdomain**: `dolibarr` (or your preferred subdomain).
    - **Domain**: one of your Cloudflare-managed domains (e.g., `example.com`).
