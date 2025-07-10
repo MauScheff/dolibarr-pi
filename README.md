@@ -9,17 +9,18 @@ This repository provides scripts and Docker Compose configuration to run Dolibar
 - Lan Cable (or connect via WiFi).
   
 ### Software
-- Set up a new CloudFlare Tunnel (needs you to have a domain managed with CloudFlare).
-  - You may need to sign up to the free plan and verify with a credit card.
-  - Then go to Zero Trust → Access → Tunnels - Create Tunnel
-  - Subdomain: dolibarr (or one you like)
-  - Domain:  Choose from your Cloudflare-managed domains (e.g., example.com)
-  - Service Type: HTTP (the public endpoint between the user and Cloudflare will use HTTPS nevertheless).
-  - URL: http://dolibarr:80 (the container name and port in Docker Compose)
-  - Save the token somewhere or leave the tab open - you'll need it later.
+Cloudflare Tunnel:
+1. Sign up for a free Cloudflare account (you may need to verify with a credit card).
+2. Go to **Zero Trust → Access → Tunnels**, and create a new tunnel.
+3. Configure:
+   - **Subdomain**: `dolibarr` (or your preferred subdomain).
+   - **Domain**: one of your Cloudflare-managed domains (e.g., `example.com`).
+   - **Service Type**: HTTP (the public endpoint will still use HTTPS).
+   - **URL**: `http://dolibarr:80` (container name and port in Docker Compose).
+4. Save the generated token — you'll need it later.
 
 ## Instructions
-## 1. Flash Raspberry Pi OS (Lite 64-bit) to SSD
+### 1. Flash Raspberry Pi OS (Lite 64-bit) to SSD
 Open Raspberry Pi Imager on your Mac
 
 Select:
@@ -33,27 +34,42 @@ Select:
 8. Click Write and let it finish
 9. Eject & replug the SSD to your Mac — two partitions should appear: boot and root
 
-## 2. Turn on
+### 2. Turn on
 1. Connect SSD to RaspberryPi
 2. Connect to power adapter and to local router (via ethernet cable or configured when flashing to connect via wifi).
 
-## 3. SSH, copy files, and setup - from another computer in the same network:
-1. `ssh pi@raspberrypi.local` (test connection first - optional).
-2. `scp -r setup.sh dolibarr-stack pi@raspberrypi.local:/home/pi/`
-3. `ssh pi@raspberrypi.local`
-4. `chmod +x setup.sh`
-5. `./setup.sh` (this will fail the first time because of permissions, log out and log in again and it should work the second time).
-6. Setup .env file - add your tunnel token in `/home/pi/dolibarr-stack/.env`
-7. eg. `nano /home/pi/dolibarr-stack/.env` -> `TUNNEL_TOKEN=your-cloudflare-tunnel-token-here`
-8. Save and exit `^-X`
+### 3. SSH, copy files, and setup
+```sh
+ssh pi@raspberrypi.local   # test connection first (optional)
+scp -r setup.sh dolibarr-stack pi@raspberrypi.local:/home/pi/
+ssh pi@raspberrypi.local
+chmod +x setup.sh
+./setup.sh  # may need to re-login due to permissions on first run
+```
 
-## 4. Run
-1. `cd ~/dolibarr-stack`
-2. `docker compose up -d`
+Setup the `.env` file with your tunnel token:
 
-## 5. Check connection
-- Locally: http://raspberrypi.local:8080/
-- Remotely: https://your.cloudflare.tunnel.url
+```sh
+nano /home/pi/dolibarr-stack/.env
+```
+
+Add the following line:
+
+```dotenv
+TUNNEL_TOKEN=your-cloudflare-tunnel-token-here
+```
+
+Save and exit with Ctrl+X.
+
+### 4. Run
+```sh
+cd ~/dolibarr-stack
+docker compose up -d
+```
+
+### 5. Check connection
+- **Locally**: http://raspberrypi.local:8080/
+- **Remotely**: https://your.cloudflare.tunnel.url
 
 ---
 
