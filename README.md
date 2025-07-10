@@ -42,7 +42,7 @@ Select:
 2. `scp -r setup.sh dolibarr-stack pi@raspberrypi.local:/home/pi/`
 3. `ssh pi@raspberrypi.local`
 4. `chmod +x setup.sh`
-5. `./setup.sh`
+5. `./setup.sh` (this will fail the first time because of permissions, log out and log in again and it should work the second time).
 6. Setup .env file - add your tunnel token in `/home/pi/dolibarr-stack/.env`
 7. eg. `nano /home/pi/dolibarr-stack/.env` -> `TUNNEL_TOKEN=your-cloudflare-tunnel-token-here`
 8. Save and exit `^-X`
@@ -56,6 +56,11 @@ Select:
 - Remotely: https://your.cloudflare.tunnel.url
 
 ---
+
+## FAQ
+
+### Does is keep running even if it goes off and on?
+Yes, provided you ran `docker compose up -d` and you're able to access it from your browser.
 
 ## Troubleshooting
 - `docker compose ps`
